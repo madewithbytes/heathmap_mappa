@@ -5,10 +5,13 @@ import shapefile as shp
 
 
 def read_shape_file(*, file_path, encoding="ISO-8859-1"):
+    """Reads the shape file and specifies shp file encoding."""
     return shp.Reader(file_path, encoding=encoding)
 
 
 def prepare_data_frame(*, shape_file):
+    """Transforms the shapefile into a panda's dataframe object.
+    This object will contain the column values and data points of the shape."""
     column_names = [r[0] for r in shape_file.fields][1:]
     records = shape_file.records()
     shape_points = [s.points for s in shape_file.shapes()]
@@ -18,6 +21,7 @@ def prepare_data_frame(*, shape_file):
 
 
 def inspect_data_frame(*, data_frame):
+    """Prints all States and Values available in the DataFrame object"""
     print("Available states: {}".format(set(data_frame.EDO_LEY)))
     print("Available values: {}".format(set(data_frame.DPHLIL_LEY)))
 

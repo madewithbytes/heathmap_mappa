@@ -8,11 +8,13 @@ import shapefile as shp
 
 
 def read_shape_file(*, file_path, encoding="ISO-8859-1"):
+    """Reads the shape file and specifies shp file encoding."""
     return shp.Reader(file_path, encoding=encoding)
 
 
 def prepare_data_frame(*, shape_file):
-    """Transform the shapefile into a panda's DataFrame object."""
+    """Transforms the shapefile into a panda's dataframe object.
+    This object will contain the column values and data points of the shape."""
     column_names = [r[0] for r in shape_file.fields][1:]
     records = shape_file.records()
     shape_points = [s.points for s in shape_file.shapes()]
@@ -31,7 +33,8 @@ PALETTES = [
 ]
 
 # Generate a configuration nomenclature indicating intensity and palette to be
-# used by matplotlib to plot the figures:
+# used by matplotlib to draw the figures:
+# Uses diferent palettes for overlapping colours:
 NomConfig = namedtuple("NomConfig", ["intensity", "palette"])
 NOMENCLATURE = [
     ("Sin poblacion hablante de lengua indigena", NomConfig(intensity=0, palette=0)),
@@ -47,7 +50,7 @@ NOMENCLATURE = [
 
 
 def plot_map_render_shape_file(*, shape_file):
-    """Renders the full figure of the shape file"""
+    """Renders the figure in the shape file"""
     figure = plt.figure()
     ax1 = figure.add_subplot()
     for shape in shape_file.shapeRecords():
