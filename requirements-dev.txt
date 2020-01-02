@@ -1,0 +1,6 @@
+black==19.10b0
+flake8==3.7.9
+mypy==0.761
+pdbpp==0.10.2
+pylint==2.4.4
+pyshp==2.1.0
